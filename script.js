@@ -11,22 +11,41 @@ function Hero(image, top, left, size,speed){
             ' src="' + this.image +'"' +
             ' style="top: '+this.top+'px; left:'+this.left+'px;position:absolute;" />';
 
-    }
+    };
 
     this.moveRight = function(){
-        this.speed +=20;
-        this.left += 20;
+        // this.speed +=20;
+        this.left += 30;
         console.log('ok: ' + this.left);
-        console.log("ok: " + this.speed)
+        // console.log("ok: " + this.speed)
+    };
+    this.moveDown = function () {
+        this.top += 30;
+        console.log('ok: ' + this.top);
+    };
+    this.moveLeft = function () {
+        this.left -= 30;
+        console.log('ok: ' + this.left);
+    }
+    this.moveUp = function () {
+        this.top -= 30;
+        console.log('ok: ' + this.top);
     }
 
 }
 
-let hero = new Hero('anh1.jpg', 20, 30, 200, 20);
+let hero = new Hero('anh1.jpg', 20, 30, 200, 200);
 
 function start(){
-    if(hero.left < window.innerWidth - hero.size){
+    if(hero.left < window.innerWidth - hero.size && hero.top == 20){
         hero.moveRight();
+    } else if (hero.left > window.innerWidth - hero.size && window.innerHeight - hero.size > hero.top) {
+        hero.moveDown();
+    } else if (window.innerHeight - hero.size < hero.top) {
+        hero.moveLeft();
+    }
+    if (hero.left === 0) {
+        hero.moveUp();
     }
     document.getElementById('game').innerHTML = hero.getHeroElement();
     setTimeout(start, 500)
